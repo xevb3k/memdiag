@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<Foundry>
+<VM>
+<VMId type="string">52 fb 9b a6 93 97 86 ba-3c 46 50 f6 a9 1e b9 1b</VMId>
+<ClientMetaData>
+<clientMetaDataAttributes/>
+<HistoryEventList/></ClientMetaData>
+<vmxPathName type="string">ramdiag.vmx</vmxPathName></VM></Foundry>
