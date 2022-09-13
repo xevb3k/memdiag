@@ -18,25 +18,25 @@ clPink          =       0Dh
 clYellow        =       0Eh
 clWhite         =       0Fh
 
-CODE_SELECTOR_32        equ     001000b         ; селектор сегмента кода для PM
-DATA_SELECTOR_32        equ     010000b         ; селектор сегмента данных для PM
+CODE_SELECTOR_32        equ     001000b         ; ╤Б╨╡╨╗╨╡╨║╤В╨╛╤А ╤Б╨╡╨│╨╝╨╡╨╜╤В╨░ ╨║╨╛╨┤╨░ ╨┤╨╗╤П PM
+DATA_SELECTOR_32        equ     010000b         ; ╤Б╨╡╨╗╨╡╨║╤В╨╛╤А ╤Б╨╡╨│╨╝╨╡╨╜╤В╨░ ╨┤╨░╨╜╨╜╤Л╤Е ╨┤╨╗╤П PM
 
-CODE_SELECTOR_64        equ     011000b         ; селектор сегмента кода для LM
-DATA_SELECTOR_64        equ     100000b         ; селектор сегмента данных для LM
+CODE_SELECTOR_64        equ     011000b         ; ╤Б╨╡╨╗╨╡╨║╤В╨╛╤А ╤Б╨╡╨│╨╝╨╡╨╜╤В╨░ ╨║╨╛╨┤╨░ ╨┤╨╗╤П LM
+DATA_SELECTOR_64        equ     100000b         ; ╤Б╨╡╨╗╨╡╨║╤В╨╛╤А ╤Б╨╡╨│╨╝╨╡╨╜╤В╨░ ╨┤╨░╨╜╨╜╤Л╤Е ╨┤╨╗╤П LM
 
-TSS_SELECTOR_64         equ     0101000b        ; селектор TSS64
+TSS_SELECTOR_64         equ     0101000b        ; ╤Б╨╡╨╗╨╡╨║╤В╨╛╤А TSS64
 
-PIC1Base                equ     20h             ; базовые адреса для PIC
+PIC1Base                equ     20h             ; ╨▒╨░╨╖╨╛╨▓╤Л╨╡ ╨░╨┤╤А╨╡╤Б╨░ ╨┤╨╗╤П PIC
 PIC2Base                equ     28h
 
-struc MEM_STRUC EntryCnt           ; описатель области памяти
+struc MEM_STRUC EntryCnt           ; ╨╛╨┐╨╕╤Б╨░╤В╨╡╨╗╤М ╨╛╨▒╨╗╨░╤Б╤В╨╕ ╨┐╨░╨╝╤П╤В╨╕
 {
-times EntryCnt          dd      0  ; начальный адрес диапазона, младшие 32 бита
-times EntryCnt          dd      0  ; начальный адрес диапазона, старшие 32 бита
-times EntryCnt          dd      0  ; длина диапазона, младшие 32 бита
-times EntryCnt          dd      0  ; длина диапазона, старшие 32 бита
-times EntryCnt          dd      0  ; тип диапазона
-times EntryCnt          dd      0  ; атрибуты диапазона
+times EntryCnt          dd      0  ; ╨╜╨░╤З╨░╨╗╤М╨╜╤Л╨╣ ╨░╨┤╤А╨╡╤Б ╨┤╨╕╨░╨┐╨░╨╖╨╛╨╜╨░, ╨╝╨╗╨░╨┤╤И╨╕╨╡ 32 ╨▒╨╕╤В╨░
+times EntryCnt          dd      0  ; ╨╜╨░╤З╨░╨╗╤М╨╜╤Л╨╣ ╨░╨┤╤А╨╡╤Б ╨┤╨╕╨░╨┐╨░╨╖╨╛╨╜╨░, ╤Б╤В╨░╤А╤И╨╕╨╡ 32 ╨▒╨╕╤В╨░
+times EntryCnt          dd      0  ; ╨┤╨╗╨╕╨╜╨░ ╨┤╨╕╨░╨┐╨░╨╖╨╛╨╜╨░, ╨╝╨╗╨░╨┤╤И╨╕╨╡ 32 ╨▒╨╕╤В╨░
+times EntryCnt          dd      0  ; ╨┤╨╗╨╕╨╜╨░ ╨┤╨╕╨░╨┐╨░╨╖╨╛╨╜╨░, ╤Б╤В╨░╤А╤И╨╕╨╡ 32 ╨▒╨╕╤В╨░
+times EntryCnt          dd      0  ; ╤В╨╕╨┐ ╨┤╨╕╨░╨┐╨░╨╖╨╛╨╜╨░
+times EntryCnt          dd      0  ; ╨░╤В╤А╨╕╨▒╤Г╤В╤Л ╨┤╨╕╨░╨┐╨░╨╖╨╛╨╜╨░
 }
 
 include 'macros.inc'
@@ -47,7 +47,7 @@ include 'macros.inc'
 
         jmp     0:REAL_MODE_ENTRY_POINT
 
-        ;       стек 4 КБ (после перехода в PM/LM можно использовать 5.5 КБ)
+        ;       ╤Б╤В╨╡╨║ 4 ╨Ъ╨С (╨┐╨╛╤Б╨╗╨╡ ╨┐╨╡╤А╨╡╤Е╨╛╨┤╨░ ╨▓ PM/LM ╨╝╨╛╨╢╨╜╨╛ ╨╕╤Б╨┐╨╛╨╗╤М╨╖╨╛╨▓╨░╤В╤М 5.5 ╨Ъ╨С)
         times   4096-5  db     0
 
 STACK_TOP:
@@ -62,31 +62,31 @@ REAL_MODE_ENTRY_POINT:
         mov     sp,STACK_TOP
         sti
 
-        ;       настройка видеорежима
+        ;       ╨╜╨░╤Б╤В╤А╨╛╨╣╨║╨░ ╨▓╨╕╨┤╨╡╨╛╤А╨╡╨╢╨╕╨╝╨░
         ;       80x25x16
         mov     ax,3
         int     10h
-        ;       разрешаем 16 цветов
+        ;       ╤А╨░╨╖╤А╨╡╤И╨░╨╡╨╝ 16 ╤Ж╨▓╨╡╤В╨╛╨▓
         mov     ax,1003h
         xor     bl,bl
         int     10h
-        ;       гасим курсор
+        ;       ╨│╨░╤Б╨╕╨╝ ╨║╤Г╤А╤Б╨╛╤А
         mov     ah,01h
         mov     ch,20h
         int     10h
 
-        ;       гасим диоды клавиатуры
+        ;       ╨│╨░╤Б╨╕╨╝ ╨┤╨╕╨╛╨┤╤Л ╨║╨╗╨░╨▓╨╕╨░╤В╤Г╤А╤Л
         xor     cl,cl
         call    KbdChangeLED_16
 
-        ;       очищаем экран
+        ;       ╨╛╤З╨╕╤Й╨░╨╡╨╝ ╤Н╨║╤А╨░╨╜
         call    ClearScreen_16
 
-        ;       приветственная надпись
+        ;       ╨┐╤А╨╕╨▓╨╡╤В╤Б╤В╨▓╨╡╨╜╨╜╨░╤П ╨╜╨░╨┤╨┐╨╕╤Б╤М
         mov     si,WelcomeText
         call    OutText_16
 
-        ;       проверяем поддержку инструкции cpuid
+        ;       ╨┐╤А╨╛╨▓╨╡╤А╤П╨╡╨╝ ╨┐╨╛╨┤╨┤╨╡╤А╨╢╨║╤Г ╨╕╨╜╤Б╤В╤А╤Г╨║╤Ж╨╕╨╕ cpuid
         pushfd
         pop     eax
         mov     ebx,eax
@@ -98,33 +98,33 @@ REAL_MODE_ENTRY_POINT:
         push    ebx
         popfd
         xor     eax,ebx
-        jnz     CPUSupported   ; процессор 486 или выше
+        jnz     CPUSupported   ; ╨┐╤А╨╛╤Ж╨╡╤Б╤Б╨╛╤А 486 ╨╕╨╗╨╕ ╨▓╤Л╤И╨╡
         mov     si,CPUNotSupportedText
         call    OutText_16
         jmp     ResetPC
 
 CPUSupported:
-        ;       определение поддержки x86-64
+        ;       ╨╛╨┐╤А╨╡╨┤╨╡╨╗╨╡╨╜╨╕╨╡ ╨┐╨╛╨┤╨┤╨╡╤А╨╢╨║╨╕ x86-64
         mov     eax,80000000h
         cpuid
-        cmp     eax,80000001h       ; если функция 80000001h не поддерживается
-        jb      No_LM_Supported     ; то и LM не поддерживается
+        cmp     eax,80000001h       ; ╨╡╤Б╨╗╨╕ ╤Д╤Г╨╜╨║╤Ж╨╕╤П 80000001h ╨╜╨╡ ╨┐╨╛╨┤╨┤╨╡╤А╨╢╨╕╨▓╨░╨╡╤В╤Б╤П
+        jb      No_LM_Supported     ; ╤В╨╛ ╨╕ LM ╨╜╨╡ ╨┐╨╛╨┤╨┤╨╡╤А╨╢╨╕╨▓╨░╨╡╤В╤Б╤П
 
-        ;       заполняем поля о имени процессора
+        ;       ╨╖╨░╨┐╨╛╨╗╨╜╤П╨╡╨╝ ╨┐╨╛╨╗╤П ╨╛ ╨╕╨╝╨╡╨╜╨╕ ╨┐╤А╨╛╤Ж╨╡╤Б╤Б╨╛╤А╨░
         mov     si,CPUVendorName
         mov     di,CPUName
         call    GetCPUinfo
 
         mov     eax,80000001h
         cpuid
-        bt      edx,29            ; если бит 29 установлен - LM поддерживается
+        bt      edx,29            ; ╨╡╤Б╨╗╨╕ ╨▒╨╕╤В 29 ╤Г╤Б╤В╨░╨╜╨╛╨▓╨╗╨╡╨╜ - LM ╨┐╨╛╨┤╨┤╨╡╤А╨╢╨╕╨▓╨░╨╡╤В╤Б╤П
         jc      LM_Supported
 
 No_LM_Supported:
-        mov     byte [x64Support],0 ; LM не поддерживается
+        mov     byte [x64Support],0 ; LM ╨╜╨╡ ╨┐╨╛╨┤╨┤╨╡╤А╨╢╨╕╨▓╨░╨╡╤В╤Б╤П
 
 LM_Supported:
-        ;       формирование карты распределения памяти
+        ;       ╤Д╨╛╤А╨╝╨╕╤А╨╛╨▓╨░╨╜╨╕╨╡ ╨║╨░╤А╤В╤Л ╤А╨░╤Б╨┐╤А╨╡╨┤╨╡╨╗╨╡╨╜╨╕╤П ╨┐╨░╨╝╤П╤В╨╕
         call    GetMemoryMap
         jnc     .MemMapDetectOK
         mov     si,ACPINotSupportedText
@@ -132,62 +132,62 @@ LM_Supported:
         jmp     ResetPC
 
 .MemMapDetectOK:
-        ; подготовка к переходу в PM
+        ; ╨┐╨╛╨┤╨│╨╛╤В╨╛╨▓╨║╨░ ╨║ ╨┐╨╡╤А╨╡╤Е╨╛╨┤╤Г ╨▓ PM
 
-        ; запретить все IRQ
+        ; ╨╖╨░╨┐╤А╨╡╤В╨╕╤В╤М ╨▓╤Б╨╡ IRQ
         cli
         in      al,70h
         or      al,80h
         times   5 nop
         out     70h,al
 
-        ; включение A20
+        ; ╨▓╨║╨╗╤О╤З╨╡╨╜╨╕╨╡ A20
         in      al,92h
         or      al,02h
         times   5 nop
         out     92h,al
 
-        ;       инициализация контроллеров прерываний,
-        ;       IRQ0 - IRQ7 отображается на PIC1Base - PIC1Base+7,
-        ;       a IRQ8 - IRQ15 на PIC2Base - PIC2Base+7
+        ;       ╨╕╨╜╨╕╤Ж╨╕╨░╨╗╨╕╨╖╨░╤Ж╨╕╤П ╨║╨╛╨╜╤В╤А╨╛╨╗╨╗╨╡╤А╨╛╨▓ ╨┐╤А╨╡╤А╤Л╨▓╨░╨╜╨╕╨╣,
+        ;       IRQ0 - IRQ7 ╨╛╤В╨╛╨▒╤А╨░╨╢╨░╨╡╤В╤Б╤П ╨╜╨░ PIC1Base - PIC1Base+7,
+        ;       a IRQ8 - IRQ15 ╨╜╨░ PIC2Base - PIC2Base+7
         mov     al,00010001b         ; ICW1
         out     20h,al
         out     0A0h,al
-        mov     al,PIC1Base          ; ICW2 для первого контроллера
+        mov     al,PIC1Base          ; ICW2 ╨┤╨╗╤П ╨┐╨╡╤А╨▓╨╛╨│╨╛ ╨║╨╛╨╜╤В╤А╨╛╨╗╨╗╨╡╤А╨░
         out     21h,al
-        mov     al,PIC2Base          ; ICW2 для второго контроллера
+        mov     al,PIC2Base          ; ICW2 ╨┤╨╗╤П ╨▓╤В╨╛╤А╨╛╨│╨╛ ╨║╨╛╨╜╤В╤А╨╛╨╗╨╗╨╡╤А╨░
         out     0A1h,al
-        mov     al,04h               ; ICW3 для первого контроллера
+        mov     al,04h               ; ICW3 ╨┤╨╗╤П ╨┐╨╡╤А╨▓╨╛╨│╨╛ ╨║╨╛╨╜╤В╤А╨╛╨╗╨╗╨╡╤А╨░
         out     21h,al
-        mov     al,02h               ; ICW3 для второго контроллера
+        mov     al,02h               ; ICW3 ╨┤╨╗╤П ╨▓╤В╨╛╤А╨╛╨│╨╛ ╨║╨╛╨╜╤В╤А╨╛╨╗╨╗╨╡╤А╨░
         out     0A1h,al
-        mov     al,00000001b         ; ICW4 для первого контроллера
+        mov     al,00000001b         ; ICW4 ╨┤╨╗╤П ╨┐╨╡╤А╨▓╨╛╨│╨╛ ╨║╨╛╨╜╤В╤А╨╛╨╗╨╗╨╡╤А╨░
         out     21h,al
-        mov     al,00000001b         ; ICW4 для второго контроллера
+        mov     al,00000001b         ; ICW4 ╨┤╨╗╤П ╨▓╤В╨╛╤А╨╛╨│╨╛ ╨║╨╛╨╜╤В╤А╨╛╨╗╨╗╨╡╤А╨░
         out     0A1h,al
 
-        ;       маскируем все IRQ, кроме клавиатуры и таймера
-        ;       1-й контроллер
+        ;       ╨╝╨░╤Б╨║╨╕╤А╤Г╨╡╨╝ ╨▓╤Б╨╡ IRQ, ╨║╤А╨╛╨╝╨╡ ╨║╨╗╨░╨▓╨╕╨░╤В╤Г╤А╤Л ╨╕ ╤В╨░╨╣╨╝╨╡╤А╨░
+        ;       1-╨╣ ╨║╨╛╨╜╤В╤А╨╛╨╗╨╗╨╡╤А
         in      al,21h
         or      al,11111100b
         out     21h,al
-        ;       2-й контроллер
+        ;       2-╨╣ ╨║╨╛╨╜╤В╤А╨╛╨╗╨╗╨╡╤А
         in      al,0A1h
         or      al,11111111b
         out     0A1h,al
 
-        ;       загрузка GDTR_32 и IDTR_32
+        ;       ╨╖╨░╨│╤А╤Г╨╖╨║╨░ GDTR_32 ╨╕ IDTR_32
         lgdt    fword [GDTR_32]
         lidt    fword [IDTR_32]
 
-        ;       переход PM
+        ;       ╨┐╨╡╤А╨╡╤Е╨╛╨┤ PM
         mov     eax,cr0
         or      al,1
         mov     cr0,eax
 
-        ;       переход на точку входа в PM для сброса очереди команд
-        ;       и загрузки в CS реального селектора
-        db      66h              ; регистр CS еще 16-битный
+        ;       ╨┐╨╡╤А╨╡╤Е╨╛╨┤ ╨╜╨░ ╤В╨╛╤З╨║╤Г ╨▓╤Е╨╛╨┤╨░ ╨▓ PM ╨┤╨╗╤П ╤Б╨▒╤А╨╛╤Б╨░ ╨╛╤З╨╡╤А╨╡╨┤╨╕ ╨║╨╛╨╝╨░╨╜╨┤
+        ;       ╨╕ ╨╖╨░╨│╤А╤Г╨╖╨║╨╕ ╨▓ CS ╤А╨╡╨░╨╗╤М╨╜╨╛╨│╨╛ ╤Б╨╡╨╗╨╡╨║╤В╨╛╤А╨░
+        db      66h              ; ╤А╨╡╨│╨╕╤Б╤В╤А CS ╨╡╤Й╨╡ 16-╨▒╨╕╤В╨╜╤Л╨╣
         db      0EAh
         dd      PROTECTED_MODE_ENRTY_POINT
         dw      CODE_SELECTOR_32
@@ -204,12 +204,12 @@ GetMemoryMap:
         mov     edx,'PAMS'
         mov     dword [di+20],1
         int     15h
-        jc      .Failed     ;   функция не поддерживается
+        jc      .Failed     ;   ╤Д╤Г╨╜╨║╤Ж╨╕╤П ╨╜╨╡ ╨┐╨╛╨┤╨┤╨╡╤А╨╢╨╕╨▓╨░╨╡╤В╤Б╤П
         mov     edx,'PAMS'
         cmp     eax,edx
-        jne     .Failed     ;   функция ошибочна
+        jne     .Failed     ;   ╤Д╤Г╨╜╨║╤Ж╨╕╤П ╨╛╤И╨╕╨▒╨╛╤З╨╜╨░
         test    ebx,ebx
-        je      .Failed     ;   всего 1 запись - ошибка
+        je      .Failed     ;   ╨▓╤Б╨╡╨│╨╛ 1 ╨╖╨░╨┐╨╕╤Б╤М - ╨╛╤И╨╕╨▒╨║╨░
         jmp     .JmpIn
 .NextEntry:
         mov     eax,0E820h
@@ -243,21 +243,21 @@ GetMemoryMap:
         popad
         ret
 
-;       ожидание any key и сброс
+;       ╨╛╨╢╨╕╨┤╨░╨╜╨╕╨╡ any key ╨╕ ╤Б╨▒╤А╨╛╤Б
 ResetPC:
         mov     si,PressAnyKeyText
         call    OutText_16
-        ;       ждем нажатия клавиши
+        ;       ╨╢╨┤╨╡╨╝ ╨╜╨░╨╢╨░╤В╨╕╤П ╨║╨╗╨░╨▓╨╕╤И╨╕
         xor     ax,ax
         int     16h
-        ;       сброс машины
+        ;       ╤Б╨▒╤А╨╛╤Б ╨╝╨░╤И╨╕╨╜╤Л
         call    KbdWait_16
         mov     al,0FEh
         out     64h,al
         cli
         hlt
 
-MemMapEntryCount        dq      0   ; количество записей в MemMap
+MemMapEntryCount        dq      0   ; ╨║╨╛╨╗╨╕╤З╨╡╤Б╤В╨▓╨╛ ╨╖╨░╨┐╨╕╤Б╨╡╨╣ ╨▓ MemMap
 MemMap                  MEM_STRUC 100
 
 MemSizeType1            dq      0   ; AddressRangeMemory
@@ -268,18 +268,18 @@ MemSizeType5            dq      0   ; AddressRangeUnusable
 MemSizeAvail            dq      0
 
 
-;       Информация о CPU
-;       SI - указатель на строку для имени вендора
-;       DI - указатель на строку для имени процессора
+;       ╨Ш╨╜╤Д╨╛╤А╨╝╨░╤Ж╨╕╤П ╨╛ CPU
+;       SI - ╤Г╨║╨░╨╖╨░╤В╨╡╨╗╤М ╨╜╨░ ╤Б╤В╤А╨╛╨║╤Г ╨┤╨╗╤П ╨╕╨╝╨╡╨╜╨╕ ╨▓╨╡╨╜╨┤╨╛╤А╨░
+;       DI - ╤Г╨║╨░╨╖╨░╤В╨╡╨╗╤М ╨╜╨░ ╤Б╤В╤А╨╛╨║╤Г ╨┤╨╗╤П ╨╕╨╝╨╡╨╜╨╕ ╨┐╤А╨╛╤Ж╨╡╤Б╤Б╨╛╤А╨░
 GetCPUinfo:
         pushad
-        ;       определение производителя CPU
+        ;       ╨╛╨┐╤А╨╡╨┤╨╡╨╗╨╡╨╜╨╕╨╡ ╨┐╤А╨╛╨╕╨╖╨▓╨╛╨┤╨╕╤В╨╡╨╗╤П CPU
         xor     eax,eax
         cpuid
         mov     dword [si],ebx
         mov     dword [si+4],edx
         mov     dword [si+8],ecx
-        ;       определение имени CPU
+        ;       ╨╛╨┐╤А╨╡╨┤╨╡╨╗╨╡╨╜╨╕╨╡ ╨╕╨╝╨╡╨╜╨╕ CPU
         mov     eax,80000002h
         cpuid
         mov     dword [di],eax
@@ -309,7 +309,7 @@ GetCPUinfo:
         ret
 
 
-include                 'lib16.inc'      ; библиотека функций для реального режима
+include                 'lib16.inc'      ; ╨▒╨╕╨▒╨╗╨╕╨╛╤В╨╡╨║╨░ ╤Д╤Г╨╜╨║╤Ж╨╕╨╣ ╨┤╨╗╤П ╤А╨╡╨░╨╗╤М╨╜╨╛╨│╨╛ ╤А╨╡╨╢╨╕╨╝╨░
 
 WelcomeText             db      'RAM diagnostic tool. RGATU, 2013',0
 CPUNotSupportedText     db      'Error: CPU not supported (required i80486 or better)',0
@@ -318,7 +318,7 @@ ACPINotSupportedText    db      'Error: ACPI not supported (required v.3.0 or hi
 
 CPUVendorName           db      12      dup(0),0
 CPUName                 db      3*16    dup(0),0
-CPUNameOffset           dq      0               ; для INTEL - смещение начала имени CPU в CPUName
+CPUNameOffset           dq      0               ; ╨┤╨╗╤П INTEL - ╤Б╨╝╨╡╤Й╨╡╨╜╨╕╨╡ ╨╜╨░╤З╨░╨╗╨░ ╨╕╨╝╨╡╨╜╨╕ CPU ╨▓ CPUName
 
 txt_TotalRAM            db      'Total RAM:',0
 txt_AvailRAM            db      'Available RAM:',0
@@ -333,7 +333,7 @@ txt_PM                  db      'protected (32-bit)',0
 x64Support              db      1
 
 
-;       ТОЧКА ВХОДА В PM
+;       ╨в╨Ю╨з╨Ъ╨Р ╨Т╨е╨Ю╨Ф╨Р ╨Т PM
 
         use32
 
@@ -348,57 +348,57 @@ PROTECTED_MODE_ENRTY_POINT:
         mov     ss,ax
         mov     esp,STACK_TOP
 
-        ;       переходим в LM, если он поддерживается
+        ;       ╨┐╨╡╤А╨╡╤Е╨╛╨┤╨╕╨╝ ╨▓ LM, ╨╡╤Б╨╗╨╕ ╨╛╨╜ ╨┐╨╛╨┤╨┤╨╡╤А╨╢╨╕╨▓╨░╨╡╤В╤Б╤П
         cmp     [x64Support],1
         je      GoLongMode
 
-        ;       иначе остаемся в PM
+        ;       ╨╕╨╜╨░╤З╨╡ ╨╛╤Б╤В╨░╨╡╨╝╤Б╤П ╨▓ PM
 
-        ;       разрешить NMI и прерывания
+        ;       ╤А╨░╨╖╤А╨╡╤И╨╕╤В╤М NMI ╨╕ ╨┐╤А╨╡╤А╤Л╨▓╨░╨╜╨╕╤П
         in      al,70h
         and     al,7Fh
         out     70h,al
 
         sti
 
-        ;       переход в основную программу (32 бита)
+        ;       ╨┐╨╡╤А╨╡╤Е╨╛╨┤ ╨▓ ╨╛╤Б╨╜╨╛╨▓╨╜╤Г╤О ╨┐╤А╨╛╨│╤А╨░╨╝╨╝╤Г (32 ╨▒╨╕╤В╨░)
         jmp     MAIN_32
 
 
 include         'main32.inc'
-include         'idt32.inc'       ; дескрипторы прерыавний для PM
-include         'exchdl32.inc'    ; обработчики исключений для PM
-include         'irqhdl32.inc'    ; обработчики IRQ для PM
-include         'lib32.inc'       ; библиотеки для PM
+include         'idt32.inc'       ; ╨┤╨╡╤Б╨║╤А╨╕╨┐╤В╨╛╤А╤Л ╨┐╤А╨╡╤А╤Л╨░╨▓╨╜╨╕╨╣ ╨┤╨╗╤П PM
+include         'exchdl32.inc'    ; ╨╛╨▒╤А╨░╨▒╨╛╤В╤З╨╕╨║╨╕ ╨╕╤Б╨║╨╗╤О╤З╨╡╨╜╨╕╨╣ ╨┤╨╗╤П PM
+include         'irqhdl32.inc'    ; ╨╛╨▒╤А╨░╨▒╨╛╤В╤З╨╕╨║╨╕ IRQ ╨┤╨╗╤П PM
+include         'lib32.inc'       ; ╨▒╨╕╨▒╨╗╨╕╨╛╤В╨╡╨║╨╕ ╨┤╨╗╤П PM
 
 include         'gdt.inc'
 
-;               регистр GDTR_32
-GDTR_32         dw cGDT_Size-1     ; лимит GDT
-                dd GDT             ; физический адрес GDT
+;               ╤А╨╡╨│╨╕╤Б╤В╤А GDTR_32
+GDTR_32         dw cGDT_Size-1     ; ╨╗╨╕╨╝╨╕╤В GDT
+                dd GDT             ; ╤Д╨╕╨╖╨╕╤З╨╡╤Б╨║╨╕╨╣ ╨░╨┤╤А╨╡╤Б GDT
 
-;               регистр IDTR_32
-IDTR_32         dw cIDT_Size_32-1  ; лимит IDT_32
-                dd IDT_32          ; физический адрес IDT_32
+;               ╤А╨╡╨│╨╕╤Б╤В╤А IDTR_32
+IDTR_32         dw cIDT_Size_32-1  ; ╨╗╨╕╨╝╨╕╤В IDT_32
+                dd IDT_32          ; ╤Д╨╕╨╖╨╕╤З╨╡╤Б╨║╨╕╨╣ ╨░╨┤╤А╨╡╤Б IDT_32
 
-;               временные адреса таблиц трансляции до перехода в LM
+;               ╨▓╤А╨╡╨╝╨╡╨╜╨╜╤Л╨╡ ╨░╨┤╤А╨╡╤Б╨░ ╤В╨░╨▒╨╗╨╕╤Ж ╤В╤А╨░╨╜╤Б╨╗╤П╤Ж╨╕╨╕ ╨┤╨╛ ╨┐╨╡╤А╨╡╤Е╨╛╨┤╨░ ╨▓ LM
 PML4_Addr       equ     1FC000h
 PDPE_Addr       equ     1FD000h
 PDE_Addr        equ     1FE000h
 
 
-PDT_Addr        equ     8000h     ; размер 512 КБ  (MaxMemAvail * 4 КБ)
-PDPT_Addr       equ     88000h    ; размер 4 КБ
-PML4T_Addr      equ     89000h    ; размер 4 КБ
+PDT_Addr        equ     8000h     ; ╤А╨░╨╖╨╝╨╡╤А 512 ╨Ъ╨С  (MaxMemAvail * 4 ╨Ъ╨С)
+PDPT_Addr       equ     88000h    ; ╤А╨░╨╖╨╝╨╡╤А 4 ╨Ъ╨С
+PML4T_Addr      equ     89000h    ; ╤А╨░╨╖╨╝╨╡╤А 4 ╨Ъ╨С
 
-;               максимальный объем отображаемой памяти (ГБ)
-MaxMemAvail     equ     128     ; 128 таблиц по 4096 = 512 КБ
+;               ╨╝╨░╨║╤Б╨╕╨╝╨░╨╗╤М╨╜╤Л╨╣ ╨╛╨▒╤К╨╡╨╝ ╨╛╤В╨╛╨▒╤А╨░╨╢╨░╨╡╨╝╨╛╨╣ ╨┐╨░╨╝╤П╤В╨╕ (╨У╨С)
+MaxMemAvail     equ     128     ; 128 ╤В╨░╨▒╨╗╨╕╤Ж ╨┐╨╛ 4096 = 512 ╨Ъ╨С
 
 
-;       подготовка к переходу в LM
+;       ╨┐╨╛╨┤╨│╨╛╤В╨╛╨▓╨║╨░ ╨║ ╨┐╨╡╤А╨╡╤Е╨╛╨┤╤Г ╨▓ LM
 
 GoLongMode:
-        ;       снимаем PG
+        ;       ╤Б╨╜╨╕╨╝╨░╨╡╨╝ PG
         mov     eax,cr0
         and     eax,7FFFFFFFh
         mov     cr0,eax
@@ -408,7 +408,7 @@ GoLongMode:
         bts     eax,5
         mov     cr4,eax
 
-        ;       подготовка начальной PML4T
+        ;       ╨┐╨╛╨┤╨│╨╛╤В╨╛╨▓╨║╨░ ╨╜╨░╤З╨░╨╗╤М╨╜╨╛╨╣ PML4T
         mov     dword [PDE_Addr], 010000011b
         mov     dword [PDE_Addr+4], 0
         mov     dword [PDPE_Addr], PDE_Addr or 11b
@@ -416,34 +416,34 @@ GoLongMode:
         mov     dword [PML4_Addr], PDPE_Addr or 11b
         mov     dword [PML4_Addr+4], 0
 
-        ;       адрес PML4 в CR3
+        ;       ╨░╨┤╤А╨╡╤Б PML4 ╨▓ CR3
         mov     eax,PML4_Addr
         mov     cr3,eax
 
-        ;       сообщаем процессору о намерении включить LM
+        ;       ╤Б╨╛╨╛╨▒╤Й╨░╨╡╨╝ ╨┐╤А╨╛╤Ж╨╡╤Б╤Б╨╛╤А╤Г ╨╛ ╨╜╨░╨╝╨╡╤А╨╡╨╜╨╕╨╕ ╨▓╨║╨╗╤О╤З╨╕╤В╤М LM
         mov     ecx,0C0000080h
         rdmsr
         bts     eax,8   ; IA32_EFER.LME := 1
         wrmsr
 
-        ;       включаем страничную адресацию
-        ;       это заставит процессор установить IA32_EFER.LMA в 1,
-        ;       что свидетельствует о переходе в LM
+        ;       ╨▓╨║╨╗╤О╤З╨░╨╡╨╝ ╤Б╤В╤А╨░╨╜╨╕╤З╨╜╤Г╤О ╨░╨┤╤А╨╡╤Б╨░╤Ж╨╕╤О
+        ;       ╤Н╤В╨╛ ╨╖╨░╤Б╤В╨░╨▓╨╕╤В ╨┐╤А╨╛╤Ж╨╡╤Б╤Б╨╛╤А ╤Г╤Б╤В╨░╨╜╨╛╨▓╨╕╤В╤М IA32_EFER.LMA ╨▓ 1,
+        ;       ╤З╤В╨╛ ╤Б╨▓╨╕╨┤╨╡╤В╨╡╨╗╤М╤Б╤В╨▓╤Г╨╡╤В ╨╛ ╨┐╨╡╤А╨╡╤Е╨╛╨┤╨╡ ╨▓ LM
         mov     eax,cr0
         bts     eax,31  ; CR0.PG := 1
         mov     cr0,eax
 
-        ;       дальний переход на точку входа в LM
+        ;       ╨┤╨░╨╗╤М╨╜╨╕╨╣ ╨┐╨╡╤А╨╡╤Е╨╛╨┤ ╨╜╨░ ╤В╨╛╤З╨║╤Г ╨▓╤Е╨╛╨┤╨░ ╨▓ LM
         jmp     CODE_SELECTOR_64 : LONG_MODE_ENTRY_POINT
 
-LONG_MODE_ENTRY_POINT:  ; точка входа в LM
+LONG_MODE_ENTRY_POINT:  ; ╤В╨╛╤З╨║╨░ ╨▓╤Е╨╛╨┤╨░ ╨▓ LM
 
 
         use64
 
         mov     rsp,STACK_TOP
 
-        ;       проверям, работает ли процессор в LM
+        ;       ╨┐╤А╨╛╨▓╨╡╤А╤П╨╝, ╤А╨░╨▒╨╛╤В╨░╨╡╤В ╨╗╨╕ ╨┐╤А╨╛╤Ж╨╡╤Б╤Б╨╛╤А ╨▓ LM
         mov     ecx,0C0000080h
         rdmsr
         bt      eax,10
@@ -451,30 +451,30 @@ LONG_MODE_ENTRY_POINT:  ; точка входа в LM
 
 LM_Enabled:
 
-        ;       загрузка 64-битной IDT
+        ;       ╨╖╨░╨│╤А╤Г╨╖╨║╨░ 64-╨▒╨╕╤В╨╜╨╛╨╣ IDT
         lidt    tword [IDTR_64]
 
-        ;       загрузка регистра TR
+        ;       ╨╖╨░╨│╤А╤Г╨╖╨║╨░ ╤А╨╡╨│╨╕╤Б╤В╤А╨░ TR
         mov     ax,TSS_SELECTOR_64
         ltr     ax
 
         call    Page_Setup
 
-        ;       адрес PML4 в CR3
+        ;       ╨░╨┤╤А╨╡╤Б PML4 ╨▓ CR3
         mov     rax,PML4T_Addr
         mov     cr3,rax
 
-        ;       разрешить NMI
+        ;       ╤А╨░╨╖╤А╨╡╤И╨╕╤В╤М NMI
         in      al,70h
         and     al,7Fh
         out     70h,al
 
-        ;       разрешить IRQ
+        ;       ╤А╨░╨╖╤А╨╡╤И╨╕╤В╤М IRQ
         sti
 
         call    CalcRAM
 
-        ;       переход в основную программу (64 бита)
+        ;       ╨┐╨╡╤А╨╡╤Е╨╛╨┤ ╨▓ ╨╛╤Б╨╜╨╛╨▓╨╜╤Г╤О ╨┐╤А╨╛╨│╤А╨░╨╝╨╝╤Г (64 ╨▒╨╕╤В╨░)
         jmp     MAIN_64
 
 include         'main64.inc'
@@ -485,50 +485,50 @@ include         'lib64.inc'
 
 
 
-;       подсчет объема памяти
+;       ╨┐╨╛╨┤╤Б╤З╨╡╤В ╨╛╨▒╤К╨╡╨╝╨░ ╨┐╨░╨╝╤П╤В╨╕
 CalcRAM:
-        ;       считаем объем каждого типа памяти
+        ;       ╤Б╤З╨╕╤В╨░╨╡╨╝ ╨╛╨▒╤К╨╡╨╝ ╨║╨░╨╢╨┤╨╛╨│╨╛ ╤В╨╕╨┐╨░ ╨┐╨░╨╝╤П╤В╨╕
         mov     rcx,[MemMapEntryCount]
         xor     rsi,rsi
 .NextBlock:
-        mov     r10d,dword [MemMap + rsi + 16]      ; тип памяти
-        mov     r11, qword [MemMap + rsi + 8]       ; размер блока
+        mov     r10d,dword [MemMap + rsi + 16]      ; ╤В╨╕╨┐ ╨┐╨░╨╝╤П╤В╨╕
+        mov     r11, qword [MemMap + rsi + 8]       ; ╤А╨░╨╖╨╝╨╡╤А ╨▒╨╗╨╛╨║╨░
         dec     r10d
-        add     qword [MemSizeType1 + r10d * 8],r11 ; суммируем однотипные блоки
+        add     qword [MemSizeType1 + r10d * 8],r11 ; ╤Б╤Г╨╝╨╝╨╕╤А╤Г╨╡╨╝ ╨╛╨┤╨╜╨╛╤В╨╕╨┐╨╜╤Л╨╡ ╨▒╨╗╨╛╨║╨╕
         add     rsi,24
-        loop    .NextBlock        ; цикл по числу вхождений в карте памяти
+        loop    .NextBlock        ; ╤Ж╨╕╨║╨╗ ╨┐╨╛ ╤З╨╕╤Б╨╗╤Г ╨▓╤Е╨╛╨╢╨┤╨╡╨╜╨╕╨╣ ╨▓ ╨║╨░╤А╤В╨╡ ╨┐╨░╨╝╤П╤В╨╕
 
-        ;       считаем общий объем RAM
-        mov     rax,qword [MemSizeType1] ; общий размер доступной памяти
-        sub     rax,qword [MemMap + 8]   ; минус размер доступного объема базовой памяти
-        add     rax,100000h              ; + 1 МБ
-        add     rax,qword [MemSizeType3] ; + занятое под ACPI
-        add     rax,qword [MemSizeType4] ; + тип 4
+        ;       ╤Б╤З╨╕╤В╨░╨╡╨╝ ╨╛╨▒╤Й╨╕╨╣ ╨╛╨▒╤К╨╡╨╝ RAM
+        mov     rax,qword [MemSizeType1] ; ╨╛╨▒╤Й╨╕╨╣ ╤А╨░╨╖╨╝╨╡╤А ╨┤╨╛╤Б╤В╤Г╨┐╨╜╨╛╨╣ ╨┐╨░╨╝╤П╤В╨╕
+        sub     rax,qword [MemMap + 8]   ; ╨╝╨╕╨╜╤Г╤Б ╤А╨░╨╖╨╝╨╡╤А ╨┤╨╛╤Б╤В╤Г╨┐╨╜╨╛╨│╨╛ ╨╛╨▒╤К╨╡╨╝╨░ ╨▒╨░╨╖╨╛╨▓╨╛╨╣ ╨┐╨░╨╝╤П╤В╨╕
+        add     rax,100000h              ; + 1 ╨Ь╨С
+        add     rax,qword [MemSizeType3] ; + ╨╖╨░╨╜╤П╤В╨╛╨╡ ╨┐╨╛╨┤ ACPI
+        add     rax,qword [MemSizeType4] ; + ╤В╨╕╨┐ 4
         mov     qword [MemSizeAvail],rax
         ret
 
 
-;       НАСТРОЙКА ТАБЛИЦ ТРАНСЛЯЦИИ
+;       ╨Э╨Р╨б╨в╨а╨Ю╨Щ╨Ъ╨Р ╨в╨Р╨С╨Ы╨Ш╨ж ╨в╨а╨Р╨Э╨б╨Ы╨п╨ж╨Ш╨Ш
 Page_Setup:
-        ;       обнуляем PDT
-        mov     rcx,MaxMemAvail * 4096 / 8   ; MaxMemAvail таблиц по 4 КБ
+        ;       ╨╛╨▒╨╜╤Г╨╗╤П╨╡╨╝ PDT
+        mov     rcx,MaxMemAvail * 4096 / 8   ; MaxMemAvail ╤В╨░╨▒╨╗╨╕╤Ж ╨┐╨╛ 4 ╨Ъ╨С
         mov     rdi,PDT_Addr
         xor     rax,rax
         cld
         rep     stosq
-        ;       обнуляем PDPT
-        mov     rcx,4096 / 8     ; 1 таблица 4 КБ
+        ;       ╨╛╨▒╨╜╤Г╨╗╤П╨╡╨╝ PDPT
+        mov     rcx,4096 / 8     ; 1 ╤В╨░╨▒╨╗╨╕╤Ж╨░ 4 ╨Ъ╨С
         mov     rdi,PDPT_Addr
         rep     stosq
-        ;       обнуляем PML4T
-        mov     rcx,4096 / 8     ; 1 таблица 4 КБ
+        ;       ╨╛╨▒╨╜╤Г╨╗╤П╨╡╨╝ PML4T
+        mov     rcx,4096 / 8     ; 1 ╤В╨░╨▒╨╗╨╕╤Ж╨░ 4 ╨Ъ╨С
         mov     rdi,PML4T_Addr
         rep     stosq
 
-        ;       настройка PML4T
-        mov     qword [PML4T_Addr],PDPT_Addr or 11b    ; присутствует только 1 элемент в таблице PML4T
+        ;       ╨╜╨░╤Б╤В╤А╨╛╨╣╨║╨░ PML4T
+        mov     qword [PML4T_Addr],PDPT_Addr or 11b    ; ╨┐╤А╨╕╤Б╤Г╤В╤Б╤В╨▓╤Г╨╡╤В ╤В╨╛╨╗╤М╨║╨╛ 1 ╤Н╨╗╨╡╨╝╨╡╨╜╤В ╨▓ ╤В╨░╨▒╨╗╨╕╤Ж╨╡ PML4T
 
-        ;       настройка PDPT (MaxMemAvail элементов)
+        ;       ╨╜╨░╤Б╤В╤А╨╛╨╣╨║╨░ PDPT (MaxMemAvail ╤Н╨╗╨╡╨╝╨╡╨╜╤В╨╛╨▓)
         xor     rdi,rdi
         xor     rsi,rsi
         mov     rcx,MaxMemAvail
@@ -542,24 +542,24 @@ Page_Setup:
         inc     rsi
         loop    .NextPDPE
 
-        ;       настройка PDT  (MaxMemAvail таблиц по 512 вхождений по 8 байт)
-        xor     rdi,rdi              ; физический адрес страницы
+        ;       ╨╜╨░╤Б╤В╤А╨╛╨╣╨║╨░ PDT  (MaxMemAvail ╤В╨░╨▒╨╗╨╕╤Ж ╨┐╨╛ 512 ╨▓╤Е╨╛╨╢╨┤╨╡╨╜╨╕╨╣ ╨┐╨╛ 8 ╨▒╨░╨╣╤В)
+        xor     rdi,rdi              ; ╤Д╨╕╨╖╨╕╤З╨╡╤Б╨║╨╕╨╣ ╨░╨┤╤А╨╡╤Б ╤Б╤В╤А╨░╨╜╨╕╤Ж╤Л
         xor     rsi,rsi
-        mov     rcx,512 * MaxMemAvail   ; MaxMemAvail таблиц по 512 вхождений
+        mov     rcx,512 * MaxMemAvail   ; MaxMemAvail ╤В╨░╨▒╨╗╨╕╤Ж ╨┐╨╛ 512 ╨▓╤Е╨╛╨╢╨┤╨╡╨╜╨╕╨╣
 .NextPDE:
         or      rdi,010000011b
         mov     qword [PDT_Addr + rsi], rdi
-        add     rsi,8                   ; шаг вхождений 8 байт
-        add     rdi,1024*1024*2         ; шаг физ. адресов 2 МБ
+        add     rsi,8                   ; ╤И╨░╨│ ╨▓╤Е╨╛╨╢╨┤╨╡╨╜╨╕╨╣ 8 ╨▒╨░╨╣╤В
+        add     rdi,1024*1024*2         ; ╤И╨░╨│ ╤Д╨╕╨╖. ╨░╨┤╤А╨╡╤Б╨╛╨▓ 2 ╨Ь╨С
         loop    .NextPDE
         ret
 
 
-;       64-битный IDTR
+;       64-╨▒╨╕╤В╨╜╤Л╨╣ IDTR
 IDTR_64 dw      cIDT_Size_64-1
         dq      IDT_64
 
-;       структура определения 64-битного TSS
+;       ╤Б╤В╤А╤Г╨║╤В╤Г╤А╨░ ╨╛╨┐╤А╨╡╨┤╨╡╨╗╨╡╨╜╨╕╤П 64-╨▒╨╕╤В╨╜╨╛╨│╨╛ TSS
 struc   DEFINE_TSS_64
 {
         .TSSBase        dd      0

@@ -1,5 +1,5 @@
 
-;       64-��⭠� IDT ��� LM
+;       64-битная IDT для LM
 
 
 cIntGate_64     equ     1110b
@@ -7,29 +7,29 @@ cTrapGate_64    equ     1111b
 cNoGate_64      equ     0
 cIDT_Size_64    =       IDT_End_64 - IDT_64
 
-;       ������� ��।����� 64-��⭮�� �
+;       структура определния 64-битного шлюза
 struc   DEFINE_GATE_64 Handler,GateType,IST
 {
-        dw      Handler and 0FFFFh                 ; ���� 15-0 ᬥ饭��
-        dw      CODE_SELECTOR_64                   ; ᥫ���� ᥣ����
-        dw      8000h or (GateType shl 8) or IST   ; 15         - ������⢨�, ࠢ�� 1
+        dw      Handler and 0FFFFh                 ; биты 15-0 смещения
+        dw      CODE_SELECTOR_64                   ; селектор сегмента
+        dw      8000h or (GateType shl 8) or IST   ; 15         - присутствие, равен 1
                                                    ; 14-13      - DPL
                                                    ; 12         - 0
-                                                   ; 11-8       - ⨯ �
+                                                   ; 11-8       - тип шлюза
                                                    ; 7-3        - 0
                                                    ; 2-0        - IST
-        dw      (Handler and 0FFFF0000h) shr 16    ; ���� 31-16 ᬥ饭��
-        dd      Handler shr 32                     ; ���� 63-32 ᬥ饭��
+        dw      (Handler and 0FFFF0000h) shr 16    ; биты 31-16 смещения
+        dd      Handler shr 32                     ; биты 63-32 смещения
         dd      0
 }
 
 align   8
 
-;       ⠡��� ���ਯ�஢ ���뢠���
+;       таблица дескрипторов прерываний
 
 IDT_64:
 
-;       00h - 1Fh ���ਯ��� �᪫�祭��
+;       00h - 1Fh дескрипторы исключений
 Int00h_64  DEFINE_GATE_64 Int00Handle_64, cIntGate_64, 0
 Int01h_64  DEFINE_GATE_64 Int01Handle_64, cIntGate_64, 0
 Int02h_64  DEFINE_GATE_64 Int02Handle_64, cIntGate_64, 0
@@ -64,9 +64,9 @@ Int1Eh_64  DEFINE_GATE_64 0,              cNoGate_64,  0
 Int1Fh_64  DEFINE_GATE_64 0,              cNoGate_64,  0
 
 
-;       ���ਯ��� ���뢠���
-Int20h_64  DEFINE_GATE_64 Int20Handle_64, cIntGate_64, 0   ; IRQ0 ⠩���
-Int21h_64  DEFINE_GATE_64 Int21Handle_64, cIntGate_64, 0   ; IRQ1 ���������
+;       дескрипторы прерываний
+Int20h_64  DEFINE_GATE_64 Int20Handle_64, cIntGate_64, 0   ; IRQ0 таймер
+Int21h_64  DEFINE_GATE_64 Int21Handle_64, cIntGate_64, 0   ; IRQ1 клавиатура
 Int22h_64  DEFINE_GATE_64 OtherIRQ_64,    cIntGate_64, 0
 Int23h_64  DEFINE_GATE_64 OtherIRQ_64,    cIntGate_64, 0
 Int24h_64  DEFINE_GATE_64 OtherIRQ_64,    cIntGate_64, 0
@@ -83,7 +83,7 @@ Int2Eh_64  DEFINE_GATE_64 OtherIRQ_64,    cIntGate_64, 0
 Int2Fh_64  DEFINE_GATE_64 OtherIRQ_64,    cIntGate_64, 0
 
 
-;       30h - FFh - �ணࠬ��� ���뢠���, �� �ᯮ�������
+;       30h - FFh - программные прерывания, не используются
 
 times   0FFh-30h+1      dq      0,0
 

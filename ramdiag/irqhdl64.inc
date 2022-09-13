@@ -1,8 +1,8 @@
-;       64-битные обработчики IRQ
+;       64-╨▒╨╕╤В╨╜╤Л╨╡ ╨╛╨▒╤А╨░╨▒╨╛╤В╤З╨╕╨║╨╕ IRQ
 
 align   8
 
-;       IRQ от таймера
+;       IRQ ╨╛╤В ╤В╨░╨╣╨╝╨╡╤А╨░
 Int20Handle_64:
         push    rax rbx
 
@@ -43,13 +43,13 @@ WaitForGray     db      0
 
 align   8
 
-;       IRQ от клавиатуры
+;       IRQ ╨╛╤В ╨║╨╗╨░╨▓╨╕╨░╤В╤Г╤А╤Л
 Int21Handle_64:
         push    rax rsi rcx r10 rbx r8
-        ;       читаем скан-код
+        ;       ╤З╨╕╤В╨░╨╡╨╝ ╤Б╨║╨░╨╜-╨║╨╛╨┤
         xor     rax,rax
         in      al,60h
-        ;       если ждем повторный код
+        ;       ╨╡╤Б╨╗╨╕ ╨╢╨┤╨╡╨╝ ╨┐╨╛╨▓╤В╨╛╤А╨╜╤Л╨╣ ╨║╨╛╨┤
         cmp     [WaitForGray],1
         jne      .NoWaitForGray
         cmp     al,80h
@@ -57,15 +57,15 @@ Int21Handle_64:
         call    KbdPush_64
 .NoPushLeaveGray:
         mov     [WaitForGray],0
-        jmp     .NoPush  ; и на выход
+        jmp     .NoPush  ; ╨╕ ╨╜╨░ ╨▓╤Л╤Е╨╛╨┤
 .NoWaitForGray:
-        ;       иначе проверяем, если нажата серая
+        ;       ╨╕╨╜╨░╤З╨╡ ╨┐╤А╨╛╨▓╨╡╤А╤П╨╡╨╝, ╨╡╤Б╨╗╨╕ ╨╜╨░╨╢╨░╤В╨░ ╤Б╨╡╤А╨░╤П
         cmp     al,0E0h
         jne     .NoGray
-        mov     [WaitForGray],1   ; будем ждать следующего скана
-        jmp     .NoPush           ; выходим, не трогая буфер
+        mov     [WaitForGray],1   ; ╨▒╤Г╨┤╨╡╨╝ ╨╢╨┤╨░╤В╤М ╤Б╨╗╨╡╨┤╤Г╤О╤Й╨╡╨│╨╛ ╤Б╨║╨░╨╜╨░
+        jmp     .NoPush           ; ╨▓╤Л╤Е╨╛╨┤╨╕╨╝, ╨╜╨╡ ╤В╤А╨╛╨│╨░╤П ╨▒╤Г╤Д╨╡╤А
 .NoGray:
-        ;       иначе проверяем, если это нажатие обычной клавиши - в буффер
+        ;       ╨╕╨╜╨░╤З╨╡ ╨┐╤А╨╛╨▓╨╡╤А╤П╨╡╨╝, ╨╡╤Б╨╗╨╕ ╤Н╤В╨╛ ╨╜╨░╨╢╨░╤В╨╕╨╡ ╨╛╨▒╤Л╤З╨╜╨╛╨╣ ╨║╨╗╨░╨▓╨╕╤И╨╕ - ╨▓ ╨▒╤Г╤Д╤Д╨╡╤А
         cmp     al,80h
         jb      .Push
         jmp     .NoPush
@@ -74,14 +74,14 @@ Int21Handle_64:
         call    KbdPush_64
 
 .NoPush:
-        ;       изменить бит состояния клавиатуры
+        ;       ╨╕╨╖╨╝╨╡╨╜╨╕╤В╤М ╨▒╨╕╤В ╤Б╨╛╤Б╤В╨╛╤П╨╜╨╕╤П ╨║╨╗╨░╨▓╨╕╨░╤В╤Г╤А╤Л
         in      al,61h
         or      al,80h
         out     61h,al
         xor     al,80h
         out     61h,al
 
-        ;       EOI обоим PIC
+        ;       EOI ╨╛╨▒╨╛╨╕╨╝ PIC
         mov     al,20h
         out     020h,al
         out     0A0h,al
@@ -90,8 +90,8 @@ Int21Handle_64:
         pop     rcx rsi rax
         iretq
 
-;       ПОМЕЩАЕТ ЭЛЕМЕНТ В ОЧЕРЕДЬ
-;       al      - помещаемый элемент
+;       ╨Я╨Ю╨Ь╨Х╨й╨Р╨Х╨в ╨н╨Ы╨Х╨Ь╨Х╨Э╨в ╨Т ╨Ю╨з╨Х╨а╨Х╨Ф╨м
+;       al      - ╨┐╨╛╨╝╨╡╤Й╨░╨╡╨╝╤Л╨╣ ╤Н╨╗╨╡╨╝╨╡╨╜╤В
 KbdPush_64:
         push    rdi
         mov     rdi,[KbdEnd]
@@ -105,7 +105,7 @@ KbdPush_64:
         pop     rdi
         ret
 
-;       ИЗВЛЕКАЕТ СКАН ИЗ ОЧЕРЕДИ в al
+;       ╨Ш╨Ч╨Т╨Ы╨Х╨Ъ╨Р╨Х╨в ╨б╨Ъ╨Р╨Э ╨Ш╨Ч ╨Ю╨з╨Х╨а╨Х╨Ф╨Ш ╨▓ al
 KbdPop_64:
         push    rsi
         mov     rsi,[KbdHead]
@@ -120,7 +120,7 @@ KbdPop_64:
         pop     rsi
         ret
 
-;       RAX=1 ЕСЛИ БЫЛА НАЖАТА КЛАВИША
+;       RAX=1 ╨Х╨б╨Ы╨Ш ╨С╨л╨Ы╨Р ╨Э╨Р╨Ц╨Р╨в╨Р ╨Ъ╨Ы╨Р╨Т╨Ш╨и╨Р
 KeyPressed_64:
         push    rbx
         xor     rax,rax
@@ -138,14 +138,14 @@ KbdClear_64:
         ret
 
 
-;       буфер клавиатуры
+;       ╨▒╤Г╤Д╨╡╤А ╨║╨╗╨░╨▓╨╕╨░╤В╤Г╤А╤Л
 KbdBuffer       db      BufferLength      dup(0)
 KbdHead         dq      0
 KbdEnd          dq      0
 
 
 
-;       обработчик для остальных IRQ
+;       ╨╛╨▒╤А╨░╨▒╨╛╤В╤З╨╕╨║ ╨┤╨╗╤П ╨╛╤Б╤В╨░╨╗╤М╨╜╤Л╤Е IRQ
 OtherIRQ_64:
         push    rax
         mov     al,20h    ;       EOI

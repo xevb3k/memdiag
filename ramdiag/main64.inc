@@ -21,17 +21,17 @@ MaxTestCount            equ     13
 
 MAIN_64:
         stdcall ClearScreen_64, clBlack, clGray
-        ;       области экрана
+        ;       ╨╛╨▒╨╗╨░╤Б╤В╨╕ ╤Н╨║╤А╨░╨╜╨░
         stdcall Bar_64, 0, 0,  80, 3,  clLightBlue,  clBlack
         stdcall Bar_64, 0, 3,  80, 1,  clGreen,      clBlack
         stdcall Bar_64, 0, 4,  80, 20, clDarkGray,   clBlack
         stdcall Bar_64, 0, 24, 80, 1,  clLightBlue,  clBlack
 
-        ;       отладочная информация
+        ;       ╨╛╤В╨╗╨░╨┤╨╛╤З╨╜╨░╤П ╨╕╨╜╤Д╨╛╤А╨╝╨░╤Ж╨╕╤П
 ;        mov     rax,rsp
 ;        stdcall WriteDEC_64, rax, 0, 23, clBlack, clGreen,11b,cFwd
 
-        ;       заголовки столбцов таблицы
+        ;       ╨╖╨░╨│╨╛╨╗╨╛╨▓╨║╨╕ ╤Б╤В╨╛╨╗╨▒╤Ж╨╛╨▓ ╤В╨░╨▒╨╗╨╕╤Ж╤Л
         stdcall Write_64, txt_TestNum,     iTestNumX,         iTestTableY, clNone, clNone, cNoAttr, cBack
         stdcall Write_64, txt_TestName,    iTestNameX,        iTestTableY, clNone, clNone, cNoAttr, cBack
         stdcall Write_64, txt_TestStatus,  iTestStatusX,      iTestTableY, clNone, clNone, cNoAttr, cBack
@@ -41,16 +41,16 @@ MAIN_64:
 ;        stdcall Write_64, txt_TestPercent, iTestPercentX,     iTestTableY, clNone, clNone, cNoAttr, cBack
         stdcall Write_64, txt_CurrPattern, iTestPatternX,     iTestTableY, clNone, clNone, cNoAttr, cBack
         stdcall Write_64, txt_Errors,      iTestErrCountX,    iTestTableY, clNone, clNone, cNoAttr, cBack
-        ;       информация о CPU и программе
+        ;       ╨╕╨╜╤Д╨╛╤А╨╝╨░╤Ж╨╕╤П ╨╛ CPU ╨╕ ╨┐╤А╨╛╨│╤А╨░╨╝╨╝╨╡
         stdcall Write_64, CPUVendorName, 0,  0,  clNone, clNone, cNoAttr, cFwd
         stdcall Write_64, [CPUNameOffset],           0,  1,  clNone, clNone, cNoAttr, cFwd
         stdcall Write_64, WelcomeText,   77, 0, clNone, clBlack, cSym,    cBack
         stdcall Write_64, txt_CPUMode,   0,  2,  clNone, clNone, cNoAttr, cFwd
         stdcall Write_64, txt_64bitMode, 10, 2,  clNone, clNone, cNoAttr, cFwd
-        ;       информация о памяти
+        ;       ╨╕╨╜╤Д╨╛╤А╨╝╨░╤Ж╨╕╤П ╨╛ ╨┐╨░╨╝╤П╤В╨╕
         stdcall Write_64, txt_TotalRAM, 46, 1, clNone, clNone, cNoAttr, cFwd
         stdcall Write_64, txt_AvailRAM, 46, 2, clNone, clNone, cNoAttr, cFwd
-        ;       размер памяти в МБ
+        ;       ╤А╨░╨╖╨╝╨╡╤А ╨┐╨░╨╝╤П╤В╨╕ ╨▓ ╨Ь╨С
         mov     rax,qword [MemSizeAvail]
         shr     rax,20
         stdcall WriteDEC_64, rax, 65, 1, clNone, clNone, cNoAttr, cBack
@@ -59,7 +59,7 @@ MAIN_64:
         stdcall WriteDEC_64, rax, 65, 2, clNone, clNone, cNoAttr, cBack
         stdcall Write_64, txt_Mb, 67, 1, clNone, clNone, cNoAttr, cFwd
         stdcall Write_64, txt_Mb, 67, 2, clNone, clNone, cNoAttr, cFwd
-        ;       горячие клавиши
+        ;       ╨│╨╛╤А╤П╤З╨╕╨╡ ╨║╨╗╨░╨▓╨╕╤И╨╕
         stdcall Write_64, txt_ssProgStart, 0, 24,  clNone, clNone, cNoAttr, cFwd
 
         call    KbdClear_64
@@ -68,17 +68,17 @@ MAIN_64:
         call    ShowTestTable
 
 .MainLoop:
-        call    KeyPressed_64  ; нажата ли клавиша?
+        call    KeyPressed_64  ; ╨╜╨░╨╢╨░╤В╨░ ╨╗╨╕ ╨║╨╗╨░╨▓╨╕╤И╨░?
         test    rax,rax
         jz      .NoKeyPressed
-        call    KbdPop_64      ; если да - извлекаем скан из буфера
+        call    KbdPop_64      ; ╨╡╤Б╨╗╨╕ ╨┤╨░ - ╨╕╨╖╨▓╨╗╨╡╨║╨░╨╡╨╝ ╤Б╨║╨░╨╜ ╨╕╨╖ ╨▒╤Г╤Д╨╡╤А╨░
 ;        stdcall WriteHEX_64, rax, 0, 0, 0,0,0,2, cFwd
-        cmp     rax,57h         ; показать полную карту памяти
+        cmp     rax,57h         ; ╨┐╨╛╨║╨░╨╖╨░╤В╤М ╨┐╨╛╨╗╨╜╤Г╤О ╨║╨░╤А╤В╤Г ╨┐╨░╨╝╤П╤В╨╕
         jne     .NoF11
         call    ShowMemMapFull
         jmp     .NoKeyPressed
 .NoF11:
-        cmp     rax,58h         ; выход из программы
+        cmp     rax,58h         ; ╨▓╤Л╤Е╨╛╨┤ ╨╕╨╖ ╨┐╤А╨╛╨│╤А╨░╨╝╨╝╤Л
         jne     .NoF12
         call    Exit_Dialog
         test    rax,rax
@@ -125,23 +125,23 @@ Test_MSCAN:
         ret
 
 
-;       МАРШЕВЫЙ ТЕСТ БЛОКА ПОСТОЯННЫМ ШАБЛОНОМ
-;       вход:   Address, Size, Template, ^TestDesc
+;       ╨Ь╨Р╨а╨и╨Х╨Т╨л╨Щ ╨в╨Х╨б╨в ╨С╨Ы╨Ю╨Ъ╨Р ╨Я╨Ю╨б╨в╨Ю╨п╨Э╨Э╨л╨Ь ╨и╨Р╨С╨Ы╨Ю╨Э╨Ю╨Ь
+;       ╨▓╤Е╨╛╨┤:   Address, Size, Template, ^TestDesc
 Test_March_ConstTemplate:
         push    rbp
         mov     rbp,rsp
         push    rax rbx rcx rdi rsi
-        mov     rdi,[rbp+16]  ; адрес блока
-        mov     rcx,[rbp+24]  ; длина блока
-        mov     rax,[rbp+32]  ; шаблон
-        mov     rsi,[rbp+40]  ; адрес дескриптора теста
-        shr     rcx,3         ; делим длину на 8
-        ;       заполняем блок шаблоном
+        mov     rdi,[rbp+16]  ; ╨░╨┤╤А╨╡╤Б ╨▒╨╗╨╛╨║╨░
+        mov     rcx,[rbp+24]  ; ╨┤╨╗╨╕╨╜╨░ ╨▒╨╗╨╛╨║╨░
+        mov     rax,[rbp+32]  ; ╤И╨░╨▒╨╗╨╛╨╜
+        mov     rsi,[rbp+40]  ; ╨░╨┤╤А╨╡╤Б ╨┤╨╡╤Б╨║╤А╨╕╨┐╤В╨╛╤А╨░ ╤В╨╡╤Б╤В╨░
+        shr     rcx,3         ; ╨┤╨╡╨╗╨╕╨╝ ╨┤╨╗╨╕╨╜╤Г ╨╜╨░ 8
+        ;       ╨╖╨░╨┐╨╛╨╗╨╜╤П╨╡╨╝ ╨▒╨╗╨╛╨║ ╤И╨░╨▒╨╗╨╛╨╜╨╛╨╝
         push    rdi rcx
         cld
         rep     stosq
         pop     rcx rdi
-        ;       сканируем блок
+        ;       ╤Б╨║╨░╨╜╨╕╤А╤Г╨╡╨╝ ╨▒╨╗╨╛╨║
 .NextScan:
         mov     rbx,[rdi]
         cmp     rbx,rax
@@ -155,17 +155,17 @@ Test_March_ConstTemplate:
         pop     rbp
         ret     32
 
-;       МАРШЕВЫЙ ТЕСТ БЛОКА АДРЕСОМ
-;       вход:   Address, Size, ^TestDesc
+;       ╨Ь╨Р╨а╨и╨Х╨Т╨л╨Щ ╨в╨Х╨б╨в ╨С╨Ы╨Ю╨Ъ╨Р ╨Р╨Ф╨а╨Х╨б╨Ю╨Ь
+;       ╨▓╤Е╨╛╨┤:   Address, Size, ^TestDesc
 Test_March_AddrTemplate:
         push    rbp
         mov     rbp,rsp
         push    rax rbx rcx rdi rsi
-        mov     rdi,[rbp+16]  ; адрес блока
-        mov     rcx,[rbp+24]  ; длина блока
-        mov     rsi,[rbp+32]  ; адрес дескриптора теста
-        shr     rcx,3         ; делим длину на 8
-        ;       заполняем блок шаблоном
+        mov     rdi,[rbp+16]  ; ╨░╨┤╤А╨╡╤Б ╨▒╨╗╨╛╨║╨░
+        mov     rcx,[rbp+24]  ; ╨┤╨╗╨╕╨╜╨░ ╨▒╨╗╨╛╨║╨░
+        mov     rsi,[rbp+32]  ; ╨░╨┤╤А╨╡╤Б ╨┤╨╡╤Б╨║╤А╨╕╨┐╤В╨╛╤А╨░ ╤В╨╡╤Б╤В╨░
+        shr     rcx,3         ; ╨┤╨╡╨╗╨╕╨╝ ╨┤╨╗╨╕╨╜╤Г ╨╜╨░ 8
+        ;       ╨╖╨░╨┐╨╛╨╗╨╜╤П╨╡╨╝ ╨▒╨╗╨╛╨║ ╤И╨░╨▒╨╗╨╛╨╜╨╛╨╝
         push    rdi rcx
 .NextFill:
         mov     qword [rdi],rdi
@@ -173,7 +173,7 @@ Test_March_AddrTemplate:
         dec     rcx
         jnz     .NextFill
         pop     rcx rdi
-        ;       сканируем блок
+        ;       ╤Б╨║╨░╨╜╨╕╤А╤Г╨╡╨╝ ╨▒╨╗╨╛╨║
 .NextScan:
         mov     rbx,[rdi]
         cmp     rbx,rdi
@@ -187,18 +187,18 @@ Test_March_AddrTemplate:
         pop     rbp
         ret     24
 
-;       ТЕСТ С ПЕРЕМЕННЫМ ШАБЛОНОМ
-;       вход:   Address, Size, Template, ^TestDesc
+;       ╨в╨Х╨б╨в ╨б ╨Я╨Х╨а╨Х╨Ь╨Х╨Э╨Э╨л╨Ь ╨и╨Р╨С╨Ы╨Ю╨Э╨Ю╨Ь
+;       ╨▓╤Е╨╛╨┤:   Address, Size, Template, ^TestDesc
 Test5_VariablePattern:
         push    rbp
         mov     rbp,rsp
         push    rax rbx rcx rdi rsi r15
-        mov     rdi,[rbp+16]  ; адрес блока
-        mov     rcx,[rbp+24]  ; длина блока
-        mov     rax,[rbp+32]  ; шаблон
-        mov     rsi,[rbp+40]  ; адрес дескриптора теста
-        shr     rcx,3         ; делим длину на 8
-        ;       заполняем блок шаблоном
+        mov     rdi,[rbp+16]  ; ╨░╨┤╤А╨╡╤Б ╨▒╨╗╨╛╨║╨░
+        mov     rcx,[rbp+24]  ; ╨┤╨╗╨╕╨╜╨░ ╨▒╨╗╨╛╨║╨░
+        mov     rax,[rbp+32]  ; ╤И╨░╨▒╨╗╨╛╨╜
+        mov     rsi,[rbp+40]  ; ╨░╨┤╤А╨╡╤Б ╨┤╨╡╤Б╨║╤А╨╕╨┐╤В╨╛╤А╨░ ╤В╨╡╤Б╤В╨░
+        shr     rcx,3         ; ╨┤╨╡╨╗╨╕╨╝ ╨┤╨╗╨╕╨╜╤Г ╨╜╨░ 8
+        ;       ╨╖╨░╨┐╨╛╨╗╨╜╤П╨╡╨╝ ╨▒╨╗╨╛╨║ ╤И╨░╨▒╨╗╨╛╨╜╨╛╨╝
         mov     r15,3
 .NextChange:
         not     rax
@@ -209,7 +209,7 @@ Test5_VariablePattern:
 
         dec     r15
         jnz     .NextChange
-        ;       сканируем блок
+        ;       ╤Б╨║╨░╨╜╨╕╤А╤Г╨╡╨╝ ╨▒╨╗╨╛╨║
 .NextScan:
 
         mov     rbx,qword [rdi]
@@ -224,17 +224,17 @@ Test5_VariablePattern:
         pop     rbp
         ret     32
 
-;       МАРШЕВЫЙ ТЕСТ БЛОКА ПОСТОЯННЫМ ШАБЛОНОМ
-;       вход:   Address, Size, ^TestDesc
+;       ╨Ь╨Р╨а╨и╨Х╨Т╨л╨Щ ╨в╨Х╨б╨в ╨С╨Ы╨Ю╨Ъ╨Р ╨Я╨Ю╨б╨в╨Ю╨п╨Э╨Э╨л╨Ь ╨и╨Р╨С╨Ы╨Ю╨Э╨Ю╨Ь
+;       ╨▓╤Е╨╛╨┤:   Address, Size, ^TestDesc
 Test6_CellsOfInfluence:
         push    rbp
         mov     rbp,rsp
         push    rax rbx rcx rdi rsi r10
-        mov     rdi,[rbp+16]  ; адрес блока
-        mov     rcx,[rbp+24]  ; длина блока
-        mov     rsi,[rbp+32]  ; адрес дескриптора теста
-        shr     rcx,3         ; делим длину на 8
-        ;       заполняем блок
+        mov     rdi,[rbp+16]  ; ╨░╨┤╤А╨╡╤Б ╨▒╨╗╨╛╨║╨░
+        mov     rcx,[rbp+24]  ; ╨┤╨╗╨╕╨╜╨░ ╨▒╨╗╨╛╨║╨░
+        mov     rsi,[rbp+32]  ; ╨░╨┤╤А╨╡╤Б ╨┤╨╡╤Б╨║╤А╨╕╨┐╤В╨╛╤А╨░ ╤В╨╡╤Б╤В╨░
+        shr     rcx,3         ; ╨┤╨╡╨╗╨╕╨╝ ╨┤╨╗╨╕╨╜╤Г ╨╜╨░ 8
+        ;       ╨╖╨░╨┐╨╛╨╗╨╜╤П╨╡╨╝ ╨▒╨╗╨╛╨║
         push    rdi rcx
         xor     r10,r10
         inc     r10
@@ -246,7 +246,7 @@ Test6_CellsOfInfluence:
         jnz     .NextFill
         pop     rcx rdi
 
-        ;       сканируем блок
+        ;       ╤Б╨║╨░╨╜╨╕╤А╤Г╨╡╨╝ ╨▒╨╗╨╛╨║
         xor     r10,r10
         inc     r10
         push    rdi rcx
@@ -262,7 +262,7 @@ Test6_CellsOfInfluence:
         jnz     .NextScan
         pop     rcx rdi
         ;;;;;;;;
-        ;       заполняем блок
+        ;       ╨╖╨░╨┐╨╛╨╗╨╜╤П╨╡╨╝ ╨▒╨╗╨╛╨║
         push    rdi rcx
         mov     r10,0FFFFFFFFFFFFFFFEh
 .NextFill2:
@@ -272,7 +272,7 @@ Test6_CellsOfInfluence:
         dec     rcx
         jnz     .NextFill2
         pop     rcx rdi
-        ;       сканируем блок
+        ;       ╤Б╨║╨░╨╜╨╕╤А╤Г╨╡╨╝ ╨▒╨╗╨╛╨║
         mov     r10,0FFFFFFFFFFFFFFFEh
         push    rdi rcx
 .NextScan2:
@@ -292,7 +292,7 @@ Test6_CellsOfInfluence:
 
 
 
-;       вход:   начало блока, размер блока, адрес дескриптора теста, шаблон
+;       ╨▓╤Е╨╛╨┤:   ╨╜╨░╤З╨░╨╗╨╛ ╨▒╨╗╨╛╨║╨░, ╤А╨░╨╖╨╝╨╡╤А ╨▒╨╗╨╛╨║╨░, ╨░╨┤╤А╨╡╤Б ╨┤╨╡╤Б╨║╤А╨╕╨┐╤В╨╛╤А╨░ ╤В╨╡╤Б╤В╨░, ╤И╨░╨▒╨╗╨╛╨╜
 Test1_Handler:
         push    rbp
         mov     rbp,rsp
@@ -303,7 +303,7 @@ Test1_Handler:
         pop     rbp
         ret     32
 
-;       вход:   начало блока, размер блока, адрес дескриптора теста, шаблон
+;       ╨▓╤Е╨╛╨┤:   ╨╜╨░╤З╨░╨╗╨╛ ╨▒╨╗╨╛╨║╨░, ╤А╨░╨╖╨╝╨╡╤А ╨▒╨╗╨╛╨║╨░, ╨░╨┤╤А╨╡╤Б ╨┤╨╡╤Б╨║╤А╨╕╨┐╤В╨╛╤А╨░ ╤В╨╡╤Б╤В╨░, ╤И╨░╨▒╨╗╨╛╨╜
 Test2_Handler:
         push    rbp
         mov     rbp,rsp
@@ -315,7 +315,7 @@ Test2_Handler:
         ret     32
 
 
-;       вход:   начало блока, размер блока, адрес дескриптора теста, шаблон
+;       ╨▓╤Е╨╛╨┤:   ╨╜╨░╤З╨░╨╗╨╛ ╨▒╨╗╨╛╨║╨░, ╤А╨░╨╖╨╝╨╡╤А ╨▒╨╗╨╛╨║╨░, ╨░╨┤╤А╨╡╤Б ╨┤╨╡╤Б╨║╤А╨╕╨┐╤В╨╛╤А╨░ ╤В╨╡╤Б╤В╨░, ╤И╨░╨▒╨╗╨╛╨╜
 Test3_Handler:
         push    rbp
         mov     rbp,rsp
@@ -327,7 +327,7 @@ Test3_Handler:
         ret     32
 
 
-;       вход:   начало блока, размер блока, адрес дескриптора теста, шаблон (не используется)
+;       ╨▓╤Е╨╛╨┤:   ╨╜╨░╤З╨░╨╗╨╛ ╨▒╨╗╨╛╨║╨░, ╤А╨░╨╖╨╝╨╡╤А ╨▒╨╗╨╛╨║╨░, ╨░╨┤╤А╨╡╤Б ╨┤╨╡╤Б╨║╤А╨╕╨┐╤В╨╛╤А╨░ ╤В╨╡╤Б╤В╨░, ╤И╨░╨▒╨╗╨╛╨╜ (╨╜╨╡ ╨╕╤Б╨┐╨╛╨╗╤М╨╖╤Г╨╡╤В╤Б╤П)
 Test4_Handler:
         push    rbp
         mov     rbp,rsp
@@ -335,7 +335,7 @@ Test4_Handler:
         pop     rbp
         ret     32
 
-;       вход:   начало блока, размер блока, адрес дескриптора теста, шаблон
+;       ╨▓╤Е╨╛╨┤:   ╨╜╨░╤З╨░╨╗╨╛ ╨▒╨╗╨╛╨║╨░, ╤А╨░╨╖╨╝╨╡╤А ╨▒╨╗╨╛╨║╨░, ╨░╨┤╤А╨╡╤Б ╨┤╨╡╤Б╨║╤А╨╕╨┐╤В╨╛╤А╨░ ╤В╨╡╤Б╤В╨░, ╤И╨░╨▒╨╗╨╛╨╜
 Test5_Handler:
         push    rbp
         mov     rbp,rsp
@@ -343,7 +343,7 @@ Test5_Handler:
         pop     rbp
         ret     32
 
-;       вход:   начало блока, размер блока, адрес дескриптора теста, шаблон (не используется)
+;       ╨▓╤Е╨╛╨┤:   ╨╜╨░╤З╨░╨╗╨╛ ╨▒╨╗╨╛╨║╨░, ╤А╨░╨╖╨╝╨╡╤А ╨▒╨╗╨╛╨║╨░, ╨░╨┤╤А╨╡╤Б ╨┤╨╡╤Б╨║╤А╨╕╨┐╤В╨╛╤А╨░ ╤В╨╡╤Б╤В╨░, ╤И╨░╨▒╨╗╨╛╨╜ (╨╜╨╡ ╨╕╤Б╨┐╨╛╨╗╤М╨╖╤Г╨╡╤В╤Б╤П)
 Test6_Handler:
         push    rbp
         mov     rbp,rsp
@@ -355,7 +355,7 @@ Test6_Handler:
 MemoryTest:
         push    rbp
         mov     rbp,rsp
-        xor     r10,r10           ; номер теста
+        xor     r10,r10           ; ╨╜╨╛╨╝╨╡╤А ╤В╨╡╤Б╤В╨░
 .NextTest:
 ;        mov     rax,cr0
 ;        bt      rax,29
@@ -364,8 +364,8 @@ MemoryTest:
 
         mov     qword [CurrentTest],r10
         mov     r11,r10
-        shl     r11,6             ; умножим номер дескриптора на 64 (размер дескриптора)
-        add     r11,TestsDscTable ; + адрес начала таблицы дескрипторов тестов
+        shl     r11,6             ; ╤Г╨╝╨╜╨╛╨╢╨╕╨╝ ╨╜╨╛╨╝╨╡╤А ╨┤╨╡╤Б╨║╤А╨╕╨┐╤В╨╛╤А╨░ ╨╜╨░ 64 (╤А╨░╨╖╨╝╨╡╤А ╨┤╨╡╤Б╨║╤А╨╕╨┐╤В╨╛╤А╨░)
+        add     r11,TestsDscTable ; + ╨░╨┤╤А╨╡╤Б ╨╜╨░╤З╨░╨╗╨░ ╤В╨░╨▒╨╗╨╕╤Ж╤Л ╨┤╨╡╤Б╨║╤А╨╕╨┐╤В╨╛╤А╨╛╨▓ ╤В╨╡╤Б╤В╨╛╨▓
 
         cmp     qword [r11],1
         je      .NoSkipThisTest
@@ -374,27 +374,27 @@ MemoryTest:
 .NoSkipThisTest:
 
         mov     qword [r11 + 16],txt_Running
-        mov     r8,[r11 + 32]     ; r8 - кол-во проходов
+        mov     r8,[r11 + 32]     ; r8 - ╨║╨╛╨╗-╨▓╨╛ ╨┐╤А╨╛╤Е╨╛╨┤╨╛╨▓
 .NextPass:
-        inc     qword [r11 + 24]  ; считаем проходы
+        inc     qword [r11 + 24]  ; ╤Б╤З╨╕╤В╨░╨╡╨╝ ╨┐╤А╨╛╤Е╨╛╨┤╤Л
         mov     r9,[MemMapEntryCount]
         xor     rsi,rsi
-        add     rsi,24            ; пропуск первого МБ
+        add     rsi,24            ; ╨┐╤А╨╛╨┐╤Г╤Б╨║ ╨┐╨╡╤А╨▓╨╛╨│╨╛ ╨Ь╨С
         dec     r9
 .NextBlock:
         cmp     dword [MemMap + rsi + 16],1
-        jne     .SkipBlock              ; пропускаем недоступные блоки
-        mov     rdi,[MemMap + rsi]      ; адрес блока
-        mov     rcx,[MemMap + rsi + 8]  ; длина блока
+        jne     .SkipBlock              ; ╨┐╤А╨╛╨┐╤Г╤Б╨║╨░╨╡╨╝ ╨╜╨╡╨┤╨╛╤Б╤В╤Г╨┐╨╜╤Л╨╡ ╨▒╨╗╨╛╨║╨╕
+        mov     rdi,[MemMap + rsi]      ; ╨░╨┤╤А╨╡╤Б ╨▒╨╗╨╛╨║╨░
+        mov     rcx,[MemMap + rsi + 8]  ; ╨┤╨╗╨╕╨╜╨░ ╨▒╨╗╨╛╨║╨░
         stdcall ShowMemMap, rdi
 
-        mov     r12,[r11 + 40]         ; указатель на дескриптор списка шаблонов
-        mov     r13,qword [r12]       ; количество шаблонов в списке
+        mov     r12,[r11 + 40]         ; ╤Г╨║╨░╨╖╨░╤В╨╡╨╗╤М ╨╜╨░ ╨┤╨╡╤Б╨║╤А╨╕╨┐╤В╨╛╤А ╤Б╨┐╨╕╤Б╨║╨░ ╤И╨░╨▒╨╗╨╛╨╜╨╛╨▓
+        mov     r13,qword [r12]       ; ╨║╨╛╨╗╨╕╤З╨╡╤Б╤В╨▓╨╛ ╤И╨░╨▒╨╗╨╛╨╜╨╛╨▓ ╨▓ ╤Б╨┐╨╕╤Б╨║╨╡
         test    r13,r13
         jnz     .No0
-        inc     r13                   ; если шаблонов нет, то выполняем тест 1 раз
+        inc     r13                   ; ╨╡╤Б╨╗╨╕ ╤И╨░╨▒╨╗╨╛╨╜╨╛╨▓ ╨╜╨╡╤В, ╤В╨╛ ╨▓╤Л╨┐╨╛╨╗╨╜╤П╨╡╨╝ ╤В╨╡╤Б╤В 1 ╤А╨░╨╖
 .No0:
-        add     r12,8                    ; r12 - ссылка на список
+        add     r12,8                    ; r12 - ╤Б╤Б╤Л╨╗╨║╨░ ╨╜╨░ ╤Б╨┐╨╕╤Б╨╛╨║
         xor     r14,r14
 .NextPattern:
         mov     r15,qword [r12 + r14 * 8]
@@ -422,9 +422,9 @@ MemoryTest:
         jnz     .NextPattern
         jmp     .SkipBlock
 .SkipBlock:
-        add     rsi,24                  ; адрес следующей записи в MemMap
+        add     rsi,24                  ; ╨░╨┤╤А╨╡╤Б ╤Б╨╗╨╡╨┤╤Г╤О╤Й╨╡╨╣ ╨╖╨░╨┐╨╕╤Б╨╕ ╨▓ MemMap
         dec     r9
-        jnz     .NextBlock              ; цикл по числу блоков
+        jnz     .NextBlock              ; ╤Ж╨╕╨║╨╗ ╨┐╨╛ ╤З╨╕╤Б╨╗╤Г ╨▒╨╗╨╛╨║╨╛╨▓
 
 ;        mov     r15,2000000000h
 ;        mov     qword [r15],0
@@ -432,7 +432,7 @@ MemoryTest:
 
 
         dec     r8
-        jnz     .NextPass               ; цикл по числу проходов
+        jnz     .NextPass               ; ╤Ж╨╕╨║╨╗ ╨┐╨╛ ╤З╨╕╤Б╨╗╤Г ╨┐╤А╨╛╤Е╨╛╨┤╨╛╨▓
 
         jmp     .m2
 .SkipThisTest:
@@ -442,7 +442,7 @@ MemoryTest:
         mov     qword [r11 + 16],txt_Passed
 .m1:
         inc     r10
-        cmp     r10,MaxTestCount    ; цикл по числу тестов
+        cmp     r10,MaxTestCount    ; ╤Ж╨╕╨║╨╗ ╨┐╨╛ ╤З╨╕╤Б╨╗╤Г ╤В╨╡╤Б╤В╨╛╨▓
         jne     .NextTest
 .CancelTests:
 
@@ -451,8 +451,8 @@ MemoryTest:
 
 
 
-;       вывод на экран карты распределения памяти (выводятся только блоки типа 1)
-;       вход:   текущий адрес
+;       ╨▓╤Л╨▓╨╛╨┤ ╨╜╨░ ╤Н╨║╤А╨░╨╜ ╨║╨░╤А╤В╤Л ╤А╨░╤Б╨┐╤А╨╡╨┤╨╡╨╗╨╡╨╜╨╕╤П ╨┐╨░╨╝╤П╤В╨╕ (╨▓╤Л╨▓╨╛╨┤╤П╤В╤Б╤П ╤В╨╛╨╗╤М╨║╨╛ ╨▒╨╗╨╛╨║╨╕ ╤В╨╕╨┐╨░ 1)
+;       ╨▓╤Е╨╛╨┤:   ╤В╨╡╨║╤Г╤Й╨╕╨╣ ╨░╨┤╤А╨╡╤Б
 ShowMemMap:
         push    rbp
         mov     rbp,rsp
@@ -498,8 +498,8 @@ ShowTestTable:
         xor     r8,r8
 .NextTest:
         mov     rsi,rcx
-        shl     rsi,6             ; умножим номер дескриптора на 64 (размер дескриптора)
-        add     rsi,TestsDscTable ; + адрес начала таблицы дескрипторов тестов
+        shl     rsi,6             ; ╤Г╨╝╨╜╨╛╨╢╨╕╨╝ ╨╜╨╛╨╝╨╡╤А ╨┤╨╡╤Б╨║╤А╨╕╨┐╤В╨╛╤А╨░ ╨╜╨░ 64 (╤А╨░╨╖╨╝╨╡╤А ╨┤╨╡╤Б╨║╤А╨╕╨┐╤В╨╛╤А╨░)
+        add     rsi,TestsDscTable ; + ╨░╨┤╤А╨╡╤Б ╨╜╨░╤З╨░╨╗╨░ ╤В╨░╨▒╨╗╨╕╤Ж╤Л ╨┤╨╡╤Б╨║╤А╨╕╨┐╤В╨╛╤А╨╛╨▓ ╤В╨╡╤Б╤В╨╛╨▓
 
         lea     rax,[iTestTableY + rcx + 1]
         mov     rbx,clDarkGray
@@ -603,7 +603,7 @@ struc   TEST_DESCRIPTOR Num, HdlAddr, NamePtr, StatusPtr, MaxPass, TmpListPtr
         .Status         dq      StatusPtr    ; 16
         .PassCurr       dq      0            ; 24
         .PassMax        dq      MaxPass      ; 32
-        .PatternList    dq      TmpListPtr   ; 40  ; указатель на список шаблонов
+        .PatternList    dq      TmpListPtr   ; 40  ; ╤Г╨║╨░╨╖╨░╤В╨╡╨╗╤М ╨╜╨░ ╤Б╨┐╨╕╤Б╨╛╨║ ╤И╨░╨▒╨╗╨╛╨╜╨╛╨▓
         .HdlAddr        dq      HdlAddr      ; 48
         .ErrCnt         dq      0            ; 56
 }

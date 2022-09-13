@@ -1,4 +1,4 @@
-;       é°‡†°Æ‚Á®™® ®·™´ÓÁ•≠®© §´Ô LM
+;       –û–±—Ä–∞–±–æ—Ç—á–∏–∫–∏ –∏—Å–∫–ª—é—á–µ–Ω–∏–π –¥–ª—è LM
 
 ExcWindowLength         =       44
 ExcWindowHeight         =       6
@@ -214,29 +214,29 @@ Int13Handle_64:
         iretq
 
 
-;       r10     - ≠Æ¨•‡ ®·™´ÓÁ•≠®Ô
-;       r12     - ≠Æ¨•‡ ÆË®°™®
-;       rdi     - ≠†ß¢†≠®• ®·™´ÓÁ•≠®Ô
+;       r10     - –Ω–æ–º–µ—Ä –∏—Å–∫–ª—é—á–µ–Ω–∏—è
+;       r12     - –Ω–æ–º–µ—Ä –æ—à–∏–±–∫–∏
+;       rdi     - –Ω–∞–∑–≤–∞–Ω–∏–µ –∏—Å–∫–ª—é—á–µ–Ω–∏—è
 ExceptionWindowDraw:
 WinX    equ     (80-ExcWindowLength)/2
 WinY    equ     (25-ExcWindowHeight)/2
-        ;       Æ™≠Æ
+        ;       –æ–∫–Ω–æ
         stdcall Bar_64, WinX, WinY, ExcWindowLength, ExcWindowHeight, ExcWindowColor, clBlack
-        ;       Ø†≠•´Ï ß†£Æ´Æ¢™†
+        ;       –ø–∞–Ω–µ–ª—å –∑–∞–≥–æ–ª–æ–≤–∫–∞
         stdcall Bar_64, WinX, WinY, ExcWindowLength, 1, ExcWindowTitleBarColor, ExcWindowTitleTextColor
-        ;       ß†£Æ´Æ¢Æ™
+        ;       –∑–∞–≥–æ–ª–æ–≤–æ–∫
         stdcall Write_64, ExcRaisedMessage, WinX + 1, WinY, 0,0,0,0
-        ;       ≠†§Ø®·Ï 1
+        ;       –Ω–∞–¥–ø–∏—Å—å 1
         stdcall Write_64, ExcNumberText,       WinX + 1, WinY + 2, 0,0,0,0
-        ;       ≠†§Ø®·Ï 2
+        ;       –Ω–∞–¥–ø–∏—Å—å 2
         stdcall Write_64,ExcNameText, WinX + 1, WinY + 3, 0,0,0,0
-        ;       ≠†§Ø®·Ï 3
+        ;       –Ω–∞–¥–ø–∏—Å—å 3
         stdcall Write_64, ExcErrCodeText, WinX + 1, WinY + 4, 0,0,0,0
-        ;       ≠Æ¨•‡ ®·™´ÓÁ•≠®Ô
+        ;       –Ω–æ–º–µ—Ä –∏—Å–∫–ª—é—á–µ–Ω–∏—è
         stdcall WriteHEX_64, r10, WinX + 19, WinY + 2, 0,0,0,16, cFwd
-        ;       ≠†ß¢†≠®• ®·™´ÓÁ•≠®Ô
+        ;       –Ω–∞–∑–≤–∞–Ω–∏–µ –∏—Å–∫–ª—é—á–µ–Ω–∏—è
         stdcall Write_64, rdi, WinX + 19, WinY + 3, 0,0,0,0
-        ;       ≠Æ¨•‡ ÆË®°™®
+        ;       –Ω–æ–º–µ—Ä –æ—à–∏–±–∫–∏
         stdcall WriteHEX_64, r12, WinX + 19, WinY + 4, 0,0,0,16, cFwd
 
 ;        stdcall WriteHEX_64, rax, WinX + 19, WinY + 5, 0,0,0,16, cFwd

@@ -1,4 +1,4 @@
-;       вывод полной карты распределения памяти
+;       ╨▓╤Л╨▓╨╛╨┤ ╨┐╨╛╨╗╨╜╨╛╨╣ ╨║╨░╤А╤В╤Л ╤А╨░╤Б╨┐╤А╨╡╨┤╨╡╨╗╨╡╨╜╨╕╤П ╨┐╨░╨╝╤П╤В╨╕
 
         MapLen          equ     56
         MapHigh         equ     23
@@ -46,7 +46,7 @@ ShowMemMapFull:
         call    KeyPressed_64
         test    rax,rax
         jz      .NoKeyPressed
-        call    KbdPop_64      ; если да - извлекаем скан из буфера
+        call    KbdPop_64      ; ╨╡╤Б╨╗╨╕ ╨┤╨░ - ╨╕╨╖╨▓╨╗╨╡╨║╨░╨╡╨╝ ╤Б╨║╨░╨╜ ╨╕╨╖ ╨▒╤Г╤Д╨╡╤А╨░
         cmp     rax,57h
         jne     .NoKeyPressed
         call    ScreenRestore

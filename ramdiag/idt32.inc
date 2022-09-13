@@ -1,4 +1,4 @@
-;       32-��⭠� IDT ��� PM
+;       32-битная IDT для PM
 
 
 cIntGate_32     equ     10001110b
@@ -8,24 +8,24 @@ cIDT_Size_32    =       IDT_End_32 - IDT_32
 
 struc DEFINE_GATE_32 Handler,GateType
 {
-        dw      Handler and 0FFFFh  ; ���� 15-0 ᬥ饭��
-        dw      CODE_SELECTOR_32    ; ᥫ���� ᥣ����
-        db      0                   ; 0 ��� ��� ��, �஬� TSS
-        db      GateType            ; ⨯ � (8E - ����誠, 8F - ���뢠���)
-                                    ; 0-3 - ⨯ �
-                                    ; 4   - ⨯ ���ਯ�� (0 - ��⥬��)
+        dw      Handler and 0FFFFh  ; биты 15-0 смещения
+        dw      CODE_SELECTOR_32    ; селектор сегмента
+        db      0                   ; 0 для всех шлюзов, кроме TSS
+        db      GateType            ; тип шлюза (8E - ловушка, 8F - прерывание)
+                                    ; 0-3 - тип шлюза
+                                    ; 4   - тип дескриптора (0 - системный)
                                     ; 5-6 - DPL
-                                    ; 7   - ��� ������⢨�, 1
-        dw      Handler shr 16      ; ���� 31-16 ᬥ饭��
+                                    ; 7   - бит присутствия, 1
+        dw      Handler shr 16      ; биты 31-16 смещения
 }
 
 
 align   8
 
-;       ⠡��� ���ਯ�஢ ���뢠���
+;       таблица дескрипторов прерываний
 
 IDT_32:
-;       00h - 1Fh ���ਯ��� �᪫�祭��
+;       00h - 1Fh дескрипторы исключений
 Int00h_32  DEFINE_GATE_32 Int00Handle_32, cIntGate_32
 Int01h_32  DEFINE_GATE_32 Int01Handle_32, cIntGate_32
 Int02h_32  DEFINE_GATE_32 Int02Handle_32, cIntGate_32
@@ -59,9 +59,9 @@ Int1Dh_32  DEFINE_GATE_32 0,              cNoGate_32
 Int1Eh_32  DEFINE_GATE_32 0,              cNoGate_32
 Int1Fh_32  DEFINE_GATE_32 0,              cNoGate_32
 
-;       ���ਯ��� ���뢠���
-Int20h_32  DEFINE_GATE_32 Int20Handle_32, cIntGate_32     ; IRQ0 ⠩���
-Int21h_32  DEFINE_GATE_32 Int21Handle_32, cIntGate_32     ; IRQ1 ���������
+;       дескрипторы прерываний
+Int20h_32  DEFINE_GATE_32 Int20Handle_32, cIntGate_32     ; IRQ0 таймер
+Int21h_32  DEFINE_GATE_32 Int21Handle_32, cIntGate_32     ; IRQ1 клавиатура
 Int22h_32  DEFINE_GATE_32 OtherIRQ_32,    cIntGate_32
 Int23h_32  DEFINE_GATE_32 OtherIRQ_32,    cIntGate_32
 Int24h_32  DEFINE_GATE_32 OtherIRQ_32,    cIntGate_32
@@ -78,7 +78,7 @@ Int2Eh_32  DEFINE_GATE_32 OtherIRQ_32,    cIntGate_32
 Int2Fh_32  DEFINE_GATE_32 OtherIRQ_32,    cIntGate_32
 
 
-;       30h - FFh - �ணࠬ��� ���뢠���, �� �ᯮ�������
+;       30h - FFh - программные прерывания, не используются
 
 times   0FFh-30h+1      dq      0
 
