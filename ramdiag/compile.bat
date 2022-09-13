@@ -2,7 +2,7 @@ cls
 @echo off
 
 rem bootsector
-echo Компиляция kernel.asm...OK
+echo ╨Ъ╨╛╨╝╨┐╨╕╨╗╤П╤Ж╨╕╤П kernel.asm...OK
 ..\fasm\fasm kernel.asm kernel.sys > Error!.tmp
 IF ERRORLEVEL 1 GOTO kernel_error
 
@@ -11,28 +11,28 @@ move kernel.sys ..\iso
 
 
 rem main
-rem echo Компиляция main.asm...OK
+rem echo ╨Ъ╨╛╨╝╨┐╨╕╨╗╤П╤Ж╨╕╤П main.asm...OK
 rem ..\fasm\fasm main.asm main.bin > Error!.tmp
 rem IF ERRORLEVEL 1 GOTO Main_Error
 
-rem Пишем загрузочную дискету
-rem echo Запись образа на дискету..OK
+rem ╨Я╨╕╤И╨╡╨╝ ╨╖╨░╨│╤А╤Г╨╖╨╛╤З╨╜╤Г╤О ╨┤╨╕╤Б╨║╨╡╤В╤Г
+rem echo ╨Ч╨░╨┐╨╕╤Б╤М ╨╛╨▒╤А╨░╨╖╨░ ╨╜╨░ ╨┤╨╕╤Б╨║╨╡╤В╤Г..OK
 rem bootdisk
 GOTO OK
 
 :kernel_error
-echo Ошибка при компиляции kernel.asm
+echo ╨Ю╤И╨╕╨▒╨║╨░ ╨┐╤А╨╕ ╨║╨╛╨╝╨┐╨╕╨╗╤П╤Ж╨╕╨╕ kernel.asm
 GOTO Exit
 
 rem :Main_Error
-rem echo Ошибка при компиляции main.asm
+rem echo ╨Ю╤И╨╕╨▒╨║╨░ ╨┐╤А╨╕ ╨║╨╛╨╝╨┐╨╕╨╗╤П╤Ж╨╕╨╕ main.asm
 rem GOTO Exit
 
 
 :OK
 del Error!.tmp
 echo ----------------------------
-echo Компиляция успешно завершена
+echo ╨Ъ╨╛╨╝╨┐╨╕╨╗╤П╤Ж╨╕╤П ╤Г╤Б╨┐╨╡╤И╨╜╨╛ ╨╖╨░╨▓╨╡╤А╤И╨╡╨╜╨░
 
 cd ..
 call make.bat
